@@ -1,0 +1,25 @@
+services:
+  api:
+    build: ./API
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+  db:
+    image: mysql:8.0.46
+    environment:
+      MYSQL_ROOT_PASSWORD: Pass
+      MYSQL_DATABASE: datacomms
+    ports:
+      - "3307:3306"
+
+  minio:
+    image: minio/minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: admin
+      MINIO_ROOT_PASSWORD: password12345
+   
